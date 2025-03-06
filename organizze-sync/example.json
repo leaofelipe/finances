@@ -1,0 +1,33 @@
+{
+  "2022": {
+    "03": {
+      "tags": {
+        "Dívidas": { "total": -570917 },
+        "Livre": { "total": -293992 },
+        "Essencial": { "total": -400100 },
+        "Educação": { "total": -19157 }
+      },
+      "categories": {
+        "48305262": { "name": "Bares e restaurantes", "total": -33725 },
+        "48305266": { "name": "Educação", "total": -19157 },
+        "48305271": { "name": "Mercado", "total": -55317 },
+        "48305275": { "name": "Pagamento de fatura", "total": -322778 },
+        "48305276": { "name": "Empréstimos", "total": 1823014 },
+        "48305278": { "name": "Outras receitas", "total": 1558869 },
+        "48305279": { "name": "Cuidados pessoais", "total": -20000 },
+        "48305281": { "name": "Salário", "total": 768705 },
+        "48305282": { "name": "Compras", "total": -134382 },
+        "48305283": { "name": "Assinaturas e serviços", "total": -48139 },
+        "48305284": { "name": "Impostos e Taxas", "total": -30422 },
+        "48305285": { "name": "Transferências", "total": 0 },
+        "70146546": { "name": "Telefone e Internet", "total": -62318 },
+        "70146548": { "name": "Energia, água e gás", "total": -99722 },
+        "70407511": { "name": "Aplicativo", "total": -143968 },
+        "115556796": { "name": "Delivery", "total": -19459 },
+        "115558065": { "name": "Suplementos", "total": -31000 },
+        "115559169": { "name": "Parcelas", "total": -570917 },
+        "115561359": { "name": "Mensalidades", "total": -15640 }
+      }
+    }
+  }
+}
