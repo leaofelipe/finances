@@ -1,19 +1,26 @@
-import { dateFilter } from './types/types'
-// import generateYearTransactionsFn from '../utils/generateYearTransactionsFn'
 import DataMesh from './services/DataMesh'
+import DatabaseService from './services/DatabaseService'
+import { yearlyData } from './types/types'
 
-const DEFAULT_YEAR = '2025'
+const DEFAULT_YEAR = new Date().getFullYear().toString()
+const PREVIOUS_YEAR = (new Date().getFullYear() - 1).toString()
 
 class App {
-  private dataMeshService: DataMesh
-
-  constructor() {
-    this.dataMeshService = new DataMesh()
+  async execute() {
+    await Promise.all([
+      this.setDataObjects(DEFAULT_YEAR),
+      this.setDataObjects(PREVIOUS_YEAR)
+    ])
+    console.log('All Files created.')
   }
 
-  async start() {
-    const date: dateFilter = { year: DEFAULT_YEAR, month: '07' }
-    this.dataMeshService.getAmmountByCategory(date)
+  async setDataObjects(year: string) {
+    const data: yearlyData = await DataMesh.getYearlyData(year)
+    const response = await DatabaseService.saveToServer(
+      year,
+      JSON.stringify(data)
+    )
+    return response
   }
 }
 

@@ -1,15 +1,12 @@
 import Category from '../models/Category'
-import { getCategories } from '../API/organizzeAPI'
-
-type categoriesData = {
-  [key: string]: Category
-}
+import OrganizzeService from './Organizze'
+import { categoriesData } from '../types/types'
 
 class CategoriesService {
   private categories: categoriesData = {}
 
   async fetch() {
-    const response = await getCategories()
+    const response = await OrganizzeService.getCategories()
     response.forEach((category: Category) => {
       this.categories[category.id] = new Category(category)
     })
