@@ -7,6 +7,7 @@ class Categories {
   }
 
   async fetch() {
+    if (Object.keys(this.categories).length > 0) return this.categories
     const response = await Organizze.getCategories()
     response.forEach((category) => {
       this.categories[category.id] = new Category(category)
@@ -15,13 +16,13 @@ class Categories {
 
   async getCategory(request, response) {
     const { id } = request.params
-    if (Object.keys(this.categories).length === 0) await this.fetch()
+    await this.fetch()
     response.status(200).send(this.categories[id])
   }
 
   async getCategories(request, response) {
     try {
-      if (Object.keys(this.categories).length === 0) await this.fetch()
+      await this.fetch()
       response.status(200).send(this.categories)
     } catch (error) {
       console.error('Error fetching categories:', error)
