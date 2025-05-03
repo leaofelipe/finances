@@ -12,15 +12,17 @@
   "private": true,
   "scripts": {
     "repair": "npx lerna repair",
-    "start:planner": "yarn workspace organizze-planner start",
-    "start:sync": "yarn workspace organizze-sync start",
-    "start:all": "yarn workspaces foreach --parallel run start",
-    "cz": "npx cz"
+    "start:planner": "yarn workspace planner start",
+    "start:sync": "yarn workspace sync start",
+    "start": "yarn workspaces foreach --parallel run start",
+    "cz": "npx cz",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "eslint": "^8.45.0"
   },
   "config": {
     "commitizen": {
