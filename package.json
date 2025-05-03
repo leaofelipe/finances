@@ -14,7 +14,7 @@
     "repair": "npx lerna repair",
     "start:planner": "yarn workspace planner start",
     "start:sync": "yarn workspace sync start",
-    "start": "yarn workspaces foreach --parallel run start",
+    "start": "yarn workspace planner start & yarn workspace sync start",
     "cz": "npx cz",
     "lint": "eslint ."
   },

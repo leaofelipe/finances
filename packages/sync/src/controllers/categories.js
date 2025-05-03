@@ -1,5 +1,5 @@
-const Organizze = require('../../services/organizze')
-const Category = require('../../models/Category')
+const Organizze = require('../services/organizze')
+const Category = require('../models/Category')
 
 class Categories {
   constructor() {

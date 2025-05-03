@@ -1,5 +1,5 @@
-const Organizze = require('../../services/organizze')
-const Transaction = require('../../models/Transaction')
+const Organizze = require('../services/organizze')
+const Transaction = require('../models/Transaction')
 
 const MONTH_START_DAY = '01'
 const BASE_YEAR = new Date().getFullYear()
