@@ -11,7 +11,6 @@ class Transactions {
   }
 
   async fetch(date) {
-    if (Object.keys(this.transactions).length > 0) return this.transactions
     const transactionsResponse = await Organizze.getTransactions(date)
     this.transactions = transactionsResponse.map((transaction) => {
       return new Transaction(transaction)
