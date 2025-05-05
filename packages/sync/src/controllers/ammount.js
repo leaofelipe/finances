@@ -1,14 +1,14 @@
-import SyncService from './SyncService'
-import generateMonths from '../utils/generateMonths'
-import generateMonthsFn from '../utils/generateMonthsFn'
-import addAmmountToData from '../utils/addAmmountToData'
-
+const Transactions = require('../models/Transactions')
+const Categories = require('../models/Categories')
+const generateMonths = require('../utils/generateMonths')
+const generateMonthsFn = require('../utils/generateMonthsFn')
+const addAmmountToData = require('../utils/addAmmountToData')
 const DEFAULT_YEAR = new Date().getFullYear().toString()
 
-class DataService {
+class Ammount {
   async getAmmountByTags({ year, month }) {
     const ammountByTag = {}
-    const transactions = await SyncService.getTransactions({ year, month })
+    const transactions = await Transactions.getTransactions({ year, month })
     transactions.forEach((transaction) => {
       transaction.tags.forEach(({ name }) => {
         addAmmountToData(name, transaction.amount_cents, ammountByTag)
@@ -30,8 +30,8 @@ class DataService {
 
   async getAmmountByCategory(date) {
     const transactionsByCategory = {}
-    const categories = await SyncService.getCategories()
-    const transactions = await SyncService.getTransactions(date)
+    const categories = await Categories.getCategories()
+    const transactions = await Transactions.getTransactions(date)
     transactions.forEach(({ category_id, amount_cents }) => {
       const categoryParentId = categories[category_id]?.parent_id || category_id
       addAmmountToData(
@@ -58,20 +58,24 @@ class DataService {
     return dataSet
   }
 
-  async getData(year) {
-    const dataSet = {}
-    const months = generateMonths()
-    const categoriesData = await this.getAmmountByCategoryForYear(year)
-    const tagsData = await this.getAmmountByTagsForYear(year)
-    months.forEach((month) => {
-      dataSet[month] = {
-        categories: categoriesData[month],
-        tags: tagsData[month]
-      }
-    })
-
-    return dataSet
+  async getData(request, response) {
+    const { year } = request.query || DEFAULT_YEAR
+    try {
+      const dataSet = {}
+      const months = generateMonths()
+      const categoriesData = await this.getAmmountByCategoryForYear(year)
+      const tagsData = await this.getAmmountByTagsForYear(year)
+      months.forEach((month) => {
+        dataSet[month] = {
+          categories: categoriesData[month],
+          tags: tagsData[month]
+        }
+      })
+      response.status(200).json(dataSet)
+    } catch (error) {
+      response.status(500).json('Internal Server Error')
+    }
   }
 }
 
-export default new DataService()
+module.exports = new Ammount()
