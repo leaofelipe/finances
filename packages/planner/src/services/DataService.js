@@ -15,6 +15,10 @@ class DataService {
     this.tagsData = {}
   }
 
+  // async init() {
+  //   await this.fetch()
+  // }
+
   clear() {
     this.mainData = {}
     this.tagsData = {}
@@ -22,9 +26,10 @@ class DataService {
 
   async fetch() {
     try {
-      this.mainData[this.currentYear] = await SyncService.getAmmount(
-        this.currentYear
-      )
+      this.mainData[this.currentYear] = await SyncService.getAmmount({
+        year: this.currentYear
+      })
+      console.log(this.mainData)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -37,8 +42,6 @@ class DataService {
     for (const month in data) {
       processTags(data[month].tags, month, this.tagsData[this.currentYear])
     }
-
-    console.log(this.tagsData)
   }
 }
 
