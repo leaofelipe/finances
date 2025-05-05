@@ -1,0 +1,53 @@
+body {
+  font-size: 12px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.accounting-table {
+  display: inline-block;
+}
+
+.accounting-table__header {
+}
+
+.accounting-table__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: 1px solid #e0e0e0;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-radius: 8px;
+}
+
+.accounting-table__block {
+  flex-grow: 0;
+  width: 80px;
+  padding: 0 0 0 5px;
+}
+
+.accounting-table__block--title {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  padding: 0 0 0 10px;
+}
+
+.accounting-table__block--subtitle {
+  display: flex;
+  width: auto;
+  flex-direction: column;
+  padding-right: 10px;
+
+  .accounting-table__block--row {
+    justify-content: right;
+    // padding: 2px 4px;
+  }
+}
+
+.accounting-table__block--row {
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  padding: 2px 0;
+}

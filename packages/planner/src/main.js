@@ -1,5 +1,2 @@
-import DataService from './services/DataService'
-
+import './style/base.scss'
 console.log('Loading Planner')
-
-DataService.processTags()
