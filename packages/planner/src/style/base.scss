@@ -1,6 +1,6 @@
 body {
   font-size: 12px;
-  font-family: 'Work Sans', sans-serif;
+  font-family: sans-serif; // Reverted to a generic sans-serif font
 }
 
 .accounting-table {
@@ -35,7 +35,7 @@ body {
 
 .accounting-table__block--subtitle {
   display: flex;
-  width: auto;
+  width: 75px;
   flex-direction: column;
   padding-right: 10px;
 

@@ -12,4 +12,23 @@
       {{/each}}
     </div>
   </div>
+  <div class="accounting-table__body">
+    {{#each tags}}
+    <div class="accounting-table__row">
+      <div class="accounting-table__block accounting-table__block--title">
+        {{@key}}
+      </div>
+      <div class="accounting-table__block accounting-table__block--subtitle">
+        <div class="accounting-table__block--row">Orçamento</div>
+        <div class="accounting-table__block--row">Gasto</div>
+        <div class="accounting-table__block--row">Saldo</div>
+      </div>
+      {{#each this}}
+      <div class="accounting-table__block">
+        <div class="accounting-table__block--row">{{formatCurrency total}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
 </div>

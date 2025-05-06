@@ -13,6 +13,7 @@ class DataService {
     this.currentYear = BASE_YEAR
     this.mainData = {}
     this.tagsData = {}
+    this.budgetData = {}
   }
 
   // async init() {
@@ -42,6 +43,13 @@ class DataService {
     for (const month in data) {
       processTags(data[month].tags, month, this.tagsData[this.currentYear])
     }
+    return this.tagsData[this.currentYear]
+  }
+
+  async getBudget() {
+    this.budgetData = await SyncService.getBudget({ year: this.currentYear })
+    console.log(this.budgetData)
+    return this.budgetData[this.currentYear]
   }
 }
 

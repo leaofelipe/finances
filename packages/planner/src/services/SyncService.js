@@ -1,4 +1,5 @@
 import axios from 'axios'
+import budgetMock from './budgetMock'
 const URL = 'http://localhost:3000'
 const AMMOUNT_URL = `${URL}/ammount`
 
@@ -23,20 +24,9 @@ class SyncService {
     return response.data
   }
 
-  // async getCategories() {
-  //   // if (Object.keys(this.categories).length > 0) return this.categories
-  //   const response = await this.fetch(CATEGORY_URL)
-  //   this.categories = response.data
-  //   return this.categories
-  // }
-
-  // async getTransactions({ year, month }) {
-  //   // Adicionar no cache valores das chaves
-  //   // if (Object.keys(this.transactions).length > 0) return this.transactions
-  //   const TRANSACTIONS_URL_WITH_PARAMS = `${TRANSACTIONS_URL}?year=${year}&month=${month}`
-  //   const response = await this.fetch(TRANSACTIONS_URL_WITH_PARAMS)
-  //   return response.data
-  // }
+  async getBudget({ year }) {
+    return Promise.resolve({ [year]: budgetMock })
+  }
 }
 
 export default new SyncService()
