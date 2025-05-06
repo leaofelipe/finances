@@ -10,9 +10,8 @@
     "node": "^v20.0.0"
   },
   "scripts": {
-    "start": "npm run webpack-dev-server",
-    "webpack": "webpack",
-    "webpack-dev-server": "webpack-dev-server"
+    "start": "webpack serve --config webpack.config.js",
+    "build": "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -30,5 +29,7 @@
     "webpack-dev-server": "^4.8.1"
   },
   "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72",
-  "dependencies": {}
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
 }

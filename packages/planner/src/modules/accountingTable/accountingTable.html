@@ -1,0 +1,15 @@
+<div class="accounting-table">
+  <div class="accounting-table__header">
+    <div class="accounting-table__row">
+      <div class="accounting-table__block accounting-table__block--title"></div>
+      <div class="accounting-table__block accounting-table__block--subtitle">
+        <div class="accounting-table__block--row"></div>
+      </div>
+      {{#each months}}
+      <div class="accounting-table__block">
+        <div class="accounting-table__block--row">{{this}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

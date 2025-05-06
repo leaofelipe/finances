@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = ({ mode = 'development' }) => ({
   mode,
@@ -29,5 +30,15 @@ module.exports = ({ mode = 'development' }) => ({
     compress: true,
     port: 9000,
     historyApiFallback: true
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/modules/accountingTable/accountingTable.html',
+          to: 'modules/accountingTable/'
+        }
+      ]
+    })
+  ]
 })

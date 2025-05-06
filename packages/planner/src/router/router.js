@@ -9,10 +9,15 @@ export function navigateTo(path) {
   renderRoute()
 }
 
-export function renderRoute() {
+export async function renderRoute() {
   const path = window.location.pathname
   const component = routes[path] || routes['/404']
-  document.getElementById('app').innerHTML = component()
+
+  // Verifica se o componente é uma função assíncrona
+  const content =
+    typeof component === 'function' ? await component() : component
+
+  document.getElementById('app').innerHTML = content
 }
 
 window.addEventListener('popstate', renderRoute)
