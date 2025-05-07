@@ -21,7 +21,7 @@ class SyncService {
   }
 
   async getCategories() {
-    const response = await this.fetch(${CATEGORIES_URL})
+    const response = await this.fetch(CATEGORIES_URL)
     this.categories = response.data
     return this.categories
   }
