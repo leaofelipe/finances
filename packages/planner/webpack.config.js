@@ -35,7 +35,7 @@ module.exports = ({ mode = 'development' }) => ({
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/modules/accountingTable/accountingTable.html',
+          from: 'src/modules/accountingTable/template.html',
           to: 'modules/accountingTable/'
         }
       ]

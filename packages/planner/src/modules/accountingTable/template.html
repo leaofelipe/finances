@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="accounting-table__body">
-    {{#each tags}}
+    {{#each data}}
     <div class="accounting-table__row">
       <div class="accounting-table__block accounting-table__block--title">
         {{@key}}
@@ -25,7 +25,9 @@
       </div>
       {{#each this}}
       <div class="accounting-table__block">
-        <div class="accounting-table__block--row">{{formatCurrency total}}</div>
+        <div class="accounting-table__block--row">{{budget}}</div>
+        <div class="accounting-table__block--row">{{spent}}</div>
+        <div class="accounting-table__block--row">{{variance}}</div>
       </div>
       {{/each}}
     </div>

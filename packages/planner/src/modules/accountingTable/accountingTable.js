@@ -1,7 +1,8 @@
 import Handlebars from 'handlebars'
+import currency from 'currency.js'
 import DataService from '../../services/DataService'
 
-const FILE = '/modules/accountingTable/accountingTable.html'
+const FILE = '/modules/accountingTable/template.html'
 const MONTHS = [
   'Janeiro',
   'Fevereiro',
@@ -16,22 +17,22 @@ const MONTHS = [
   'Novembro',
   'Dezembro'
 ]
-const TAGS = ['Dívidas e Parcelamentos', 'Essencial', 'Investimentos', 'Livre']
+const TAGS = ['Essencial', 'Dívidas e Parcelamentos', 'Investimentos', 'Livre']
 
-Handlebars.registerHelper('formatCurrency', function (value) {
-  const valueString = value.toString()
-  const integerPart = valueString.slice(0, -2) || '0'
-  const centsPart = valueString.slice(-2)
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(`${integerPart}.${centsPart}`)
-})
+const formatCurrency = (value = 0, hasNegativePattern = true) => {
+  return currency(value, {
+    symbol: 'R$ ',
+    precision: 2,
+    separator: '.',
+    decimal: ',',
+    fromCents: true,
+    negativePattern: hasNegativePattern ? '(!#)' : '!#'
+  })
+}
 
 class AccountingTable {
   async fetchData() {
     const budget = await DataService.getBudget()
-    console.log('=>', budget)
     return await DataService.processTags()
   }
 
@@ -40,27 +41,32 @@ class AccountingTable {
     const budget = await DataService.getBudget()
     const tags = await DataService.processTags()
     TAGS.forEach((tag) => {
-      Object.keys(budget[tag]).forEach((month) => {
-        console.log('month', month)
-        // console.log('bd', budget[tag])
-        // console.log('tg', tags[tag])
+      if (!data[tag]) data[tag] = []
+      Object.keys(budget[tag] || {}).forEach((month) => {
+        const index = parseInt(month, 10) - 1
+        const budgetTotal = formatCurrency(budget[tag][month]?.total)
+        const tagsTotal = formatCurrency(tags[tag]?.[month]?.total, false)
+        data[tag][index] = {
+          budget: budgetTotal.format(),
+          spent: tagsTotal.format(),
+          variance: budgetTotal.add(tagsTotal).format()
+        }
       })
     })
+    return data
   }
 
   async render() {
     try {
-      const test = await this.parseData()
-      const tags = await this.fetchData()
-      // console.log(tags)
+      const data = await this.parseData()
+      console.log(data)
       const response = await fetch(FILE)
       const html = await response.text()
       const template = Handlebars.compile(html)
-      const data = {
+      return template({
         months: MONTHS,
-        tags
-      }
-      return template(data)
+        data
+      })
     } catch (error) {
       console.error('Error loading template:', error)
       return ''
