@@ -5,8 +5,7 @@ export default async function ProjectionsPage() {
 
   return `
     <div>
-      <h1>Projections</h1>
-      <p>Projeções</p>
+      <h1>Projeções</h1>
       ${accountingTableHTML}
     </div>
   `

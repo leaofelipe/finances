@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars'
-import currency from 'currency.js'
 import DataService from '../../services/DataService'
+import formatCurrency from '../../utils/formatCurrency'
 
 const FILE = '/modules/accountingTable/template.html'
 const MONTHS = [
@@ -19,23 +19,7 @@ const MONTHS = [
 ]
 const TAGS = ['Essencial', 'Dívidas e Parcelamentos', 'Investimentos', 'Livre']
 
-const formatCurrency = (value = 0, hasNegativePattern = true) => {
-  return currency(value, {
-    symbol: 'R$ ',
-    precision: 2,
-    separator: '.',
-    decimal: ',',
-    fromCents: true,
-    negativePattern: hasNegativePattern ? '(!#)' : '!#'
-  })
-}
-
 class AccountingTable {
-  async fetchData() {
-    const budget = await DataService.getBudget()
-    return await DataService.processTags()
-  }
-
   async parseData() {
     const data = {}
     const budget = await DataService.getBudget()
@@ -59,9 +43,8 @@ class AccountingTable {
   async render() {
     try {
       const data = await this.parseData()
-      console.log(data)
-      const response = await fetch(FILE)
-      const html = await response.text()
+      const file = await fetch(FILE)
+      const html = await file.text()
       const template = Handlebars.compile(html)
       return template({
         months: MONTHS,
