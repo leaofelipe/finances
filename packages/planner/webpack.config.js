@@ -37,6 +37,10 @@ module.exports = ({ mode = 'development' }) => ({
         {
           from: 'src/modules/accountingTable/template.html',
           to: 'modules/accountingTable/'
+        },
+        {
+          from: 'src/modules/allocation/template.html',
+          to: 'modules/allocation/'
         }
       ]
     })

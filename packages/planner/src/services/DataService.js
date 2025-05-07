@@ -11,9 +11,7 @@ const BASE_YEAR = new Date().getFullYear()
 class DataService {
   constructor() {
     this.currentYear = BASE_YEAR
-    this.mainData = {}
-    this.tagsData = {}
-    this.budgetData = {}
+    this.clear()
   }
 
   // async init() {
@@ -23,6 +21,7 @@ class DataService {
   clear() {
     this.mainData = {}
     this.tagsData = {}
+    this.categoriesData = {}
   }
 
   async fetch() {
@@ -34,6 +33,11 @@ class DataService {
     } catch (error) {
       console.error('Error fetching data:', error)
     }
+  }
+
+  async getCategories() {
+    this.categoriesData = await SyncService.getCategories()
+    return this.categoriesData
   }
 
   async processTags() {
