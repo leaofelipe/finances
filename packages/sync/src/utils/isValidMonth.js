@@ -1,4 +1,3 @@
 module.exports = function (month) {
-  const monthNumber = parseInt(month, 10)
-  return monthNumber >= 1 && monthNumber <= 12
+  return Number.isInteger(month) && month >= 1 && month <= 12
 }
