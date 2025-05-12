@@ -5,7 +5,7 @@ module.exports = ({ mode = 'development' }) => ({
   mode,
   entry: './src/main.js',
   output: {
-    path: __dirname + '/public',
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
   },
   module: {

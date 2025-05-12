@@ -17,7 +17,7 @@ const MONTHS = [
   'Novembro',
   'Dezembro'
 ]
-const TAGS = ['Essencial', 'Dívidas e Parcelamentos', 'Investimentos', 'Livre']
+// const TAGS = ['Essencial', 'Dívidas e Parcelamentos', 'Investimentos', 'Livre']
 const CATEGORY_NAMES = [
   'Salário fixo',
   'Salário complementar',

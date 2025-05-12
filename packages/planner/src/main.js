@@ -1,6 +1,4 @@
 import './style/base.scss'
-console.log('Loading Planner')
-
 import { addRoute, navigateTo, renderRoute } from './router/router'
 import HomePage from './pages/HomePage'
 import ProjectionsPage from './pages/ProjectionsPage'
