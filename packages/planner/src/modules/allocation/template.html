@@ -1,25 +1,18 @@
-<div class="accounting-table">
-  <div class="accounting-table__header">
-    <div class="accounting-table__row">
-      <div class="accounting-table__block accounting-table__block--title"></div>
-      {{#each months}}
-      <div class="accounting-table__block">
-        <div class="accounting-table__block--row">{{this}}</div>
-      </div>
-      {{/each}}
-    </div>
-  </div>
-  <div class="accounting-table__body">
+<div id="allocation-container">
+  <select id="month">
+    {{#each months}}
+      <option value="{{value}}" {{#if (eq ../selectedMonth value)}}selected{{/if}}>{{name}}</option>
+    {{/each}}
+  </select>
+
+  <div class="allocation">
     {{#each data}}
-    <div class="accounting-table__row">
-      <div class="accounting-table__block accounting-table__block--title">
-        {{name}}
-      </div>
-      {{#each total}}
-      <div class="accounting-table__block">
-        <div class="accounting-table__block--row">{{this}}</div>
-      </div>
-      {{/each}}
+    <div class="block">
+      <div class="title">{{@key}}</div>
+      <div class="budget">{{budget}}</div>
+      <div class="spent">{{tag}}</div>
+      <div class="divider"></div>
+      <div class="result">{{result}}</div>
     </div>
     {{/each}}
   </div>

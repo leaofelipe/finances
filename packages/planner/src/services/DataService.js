@@ -76,10 +76,9 @@ class DataService {
     return this.tagsData[this.currentYear]
   }
 
-  async getBudget() {
-    this.budgetData = await SyncService.getBudget({ year: this.currentYear })
-    console.log(this.budgetData)
-    return this.budgetData[this.currentYear]
+  async getBudgets() {
+    this.budgetData = await SyncService.getBudgets({ year: this.currentYear })
+    return this.budgetData
   }
 }
 

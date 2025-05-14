@@ -1,71 +1,89 @@
 import Handlebars from 'handlebars'
-import DataService from '../../services/DataService'
-import formatCurrency from '../../utils/formatCurrency'
+import Budget from '../../models/Budget'
+import './allocation.scss'
 
-const FILE = '/modules/allocation/template.html'
 const MONTHS = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro'
+  'Jan',
+  'Fev',
+  'Mar',
+  'Abr',
+  'Mai',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Set',
+  'Out',
+  'Nov',
+  'Dez'
 ]
-// const TAGS = ['Essencial', 'Dívidas e Parcelamentos', 'Investimentos', 'Livre']
-const CATEGORY_NAMES = [
-  'Salário fixo',
-  'Salário complementar',
-  'Renda complementar',
-  'Investimentos',
-  'Empréstimos',
-  'Outras receitas'
-]
-function sortByName(resource) {
-  const data = []
-  Object.keys(resource).forEach((key) => {
-    const index = CATEGORY_NAMES.indexOf(key)
-    data[index] = { name: key, total: resource[key] }
-  })
-  return data
-}
+const FILE = '/modules/allocation/template.html'
+
+Handlebars.registerHelper('eq', (a, b) => a === b)
 
 class Allocation {
-  async parseData() {
-    const categories = await DataService.getCategoriesByType('income')
-    const ammountByCategories = await DataService.processCategories()
-    const data = Object.keys(categories).map((category) => {
-      const name = categories[category].name
-      const ammount = ammountByCategories[category]
-      const monthlyData = MONTHS.map((_, index) => {
-        const monthIndex = (index + 1).toString().padStart(2, '0')
-        return formatCurrency(ammount[monthIndex]?.total || 0).format()
-      })
-      return { name, monthlyData }
-    })
+  constructor() {
+    // Lê o valor de month da querystring, se existir
+    const params = new URLSearchParams(window.location.search)
+    this.selectedMonth = params.get('month') || '01'
+    this.budgets = {}
+    this.listenToQueryString()
+  }
 
-    return sortByName(
-      data.reduce((acc, { name, monthlyData }) => {
-        acc[name] = monthlyData
-        return acc
-      }, {})
-    )
+  parseMonths() {
+    return MONTHS.map((month, index) => {
+      return {
+        name: month,
+        value: (index + 1).toString().padStart(2, '0')
+      }
+    })
+  }
+
+  async parseData(month) {
+    const budget = new Budget('2025')
+    this.budgets = await budget.getBudgetByMonth(this.selectedMonth)
+    return this.budgets
+  }
+
+  addListener() {
+    const monthSelect = document.getElementById('month')
+    if (monthSelect) {
+      monthSelect.addEventListener('change', async (event) => {
+        this.selectedMonth = event.target.value
+        // Atualiza a querystring da URL sem recarregar a página
+        const params = new URLSearchParams(window.location.search)
+        params.set('month', this.selectedMonth)
+        const newUrl = `${window.location.pathname}?${params.toString()}`
+        window.history.replaceState({}, '', newUrl)
+        // ...você pode chamar render ou atualizar a interface aqui se necessário...
+      })
+    }
+  }
+
+  listenToQueryString() {
+    window.addEventListener('popstate', async () => {
+      const params = new URLSearchParams(window.location.search)
+      const newMonth = params.get('month') || '01'
+      if (newMonth !== this.selectedMonth) {
+        this.selectedMonth = newMonth
+        this.render()
+      }
+    })
   }
 
   async render() {
     try {
-      const data = await this.parseData()
+      const months = this.parseMonths()
+      await this.parseData()
       const file = await fetch(FILE)
       const html = await file.text()
+      // Adiciona helper eq ao Handlebars se ainda não existir
+
       const template = Handlebars.compile(html)
+      setTimeout(() => this.addListener(), 0)
       return template({
-        months: MONTHS,
-        data
+        months,
+        data: this.budgets,
+        selectedMonth: this.selectedMonth
       })
     } catch (error) {
       console.error('Error loading template:', error)

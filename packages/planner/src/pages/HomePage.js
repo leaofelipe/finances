@@ -5,7 +5,7 @@ export default async function HomePage() {
 
   return `
     <div>
-      <h1>Alocação</h1>
+      <h1>Maio, 2025</h1>
       ${allocationHTML}
     </div>
   `

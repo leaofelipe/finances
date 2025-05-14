@@ -13,7 +13,6 @@ export async function renderRoute() {
   const path = window.location.pathname
   const component = routes[path] || routes['/404']
 
-  // Verifica se o componente é uma função assíncrona
   const content =
     typeof component === 'function' ? await component() : component
 

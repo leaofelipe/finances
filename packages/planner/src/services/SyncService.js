@@ -3,6 +3,7 @@ import budgetMock from './budgetMock'
 const URL = 'http://localhost:3000'
 const AMMOUNT_URL = `${URL}/ammount`
 const CATEGORIES_URL = `${URL}/categories`
+const BUDGETS_URL = `${URL}/budgets`
 
 class SyncService {
   constructor() {
@@ -31,8 +32,9 @@ class SyncService {
     return response.data
   }
 
-  async getBudget({ year }) {
-    return Promise.resolve({ [year]: budgetMock })
+  async getBudgets({ year }) {
+    const response = await this.fetch(`${BUDGETS_URL}?year=${year}`)
+    return response.data
   }
 }
 

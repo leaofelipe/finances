@@ -14,8 +14,8 @@ renderRoute()
 
 const navLinks = `
   <nav>
-    <a href="/" onclick="event.preventDefault(); navigateTo('/')">Home</a>
-    <a href="/projections" onclick="event.preventDefault(); navigateTo('/projections')">Projections</a>
+    <a href="/" onclick="event.preventDefault(); navigateTo('/')">Orçamento</a>
+    <a href="/projections" onclick="event.preventDefault(); navigateTo('/projections')">Projeção</a>
   </nav>
 `
 
