@@ -1,0 +1,26 @@
+{
+  "2025": {
+    "01": {
+      "categories": {
+        "12333": -2293,
+        "87438": -2294,
+        "33443": -2295,
+        "857873": -2296
+      },
+      "tags": {
+        "Essencial": -2297,
+        "Livre": -2298,
+        "Investimentos": -2299
+      },
+      "credit_cards": {
+        "card01": -2300,
+        "card02": -2301
+      },
+      "total": {
+        "start_ballance": 1000,
+        "income": 1000,
+        "outcome": -400
+      }
+    }
+  }
+}

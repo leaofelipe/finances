@@ -31,7 +31,6 @@ class FirebaseService {
       const response = await setDoc(document, data)
       return response
     } catch (error) {
-      console.error(error)
       throw new Error('Failed to create document')
     }
   }
