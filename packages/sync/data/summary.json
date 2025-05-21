@@ -12,12 +12,8 @@
         "Livre": -2298,
         "Investimentos": -2299
       },
-      "credit_cards": {
-        "card01": -2300,
-        "card02": -2301
-      },
       "total": {
-        "start_ballance": 1000,
+        "credit_cards": -2302,
         "income": 1000,
         "outcome": -400
       }
