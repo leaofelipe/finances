@@ -5,7 +5,7 @@ class Transaction {
     this.date = date
     this.amount_cents = amount_cents
     this.category_id = category_id
-    this.tags = tags
+    this.tags = Object.values(tags).map((tag) => tag.name)
   }
 }
 
